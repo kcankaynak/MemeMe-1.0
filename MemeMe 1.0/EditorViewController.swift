@@ -22,10 +22,7 @@ class EditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        topTextField.defaultTextAttributes = getTextFieldAttributes()
-        bottomTextField.defaultTextAttributes = getTextFieldAttributes()
-        topTextField.textAlignment = .center
-        bottomTextField.textAlignment = .center
+        setupTextFields()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,12 +92,15 @@ extension EditorViewController {
 
 extension EditorViewController {
     
-    func getTextFieldAttributes() -> [NSAttributedString.Key: Any] {
+    func setupTextFields() {
         let textAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.strokeColor: UIColor.black,
                                                              NSAttributedString.Key.foregroundColor: UIColor.white,
                                                              NSAttributedString.Key.font: UIFont(name: "impact", size: 44)!,
                                                              NSAttributedString.Key.strokeWidth: -3.0]
-        return textAttributes
+        topTextField.defaultTextAttributes = textAttributes
+        bottomTextField.defaultTextAttributes = textAttributes
+        topTextField.textAlignment = .center
+        bottomTextField.textAlignment = .center
     }
 }
 
@@ -197,8 +197,7 @@ extension EditorViewController {
 extension EditorViewController {
     
     func saveImage(_ memedImage: UIImage) {
-        if let topText = topTextField.text, let bottomText = bottomTextField.text, let originalImage = memeImageView.image {
-            let memeModel = Meme(topText: topText, bottomText: bottomText, originalImage: originalImage, memedImage: memedImage)
-        }
+        guard topTextField.text != nil, bottomTextField.text != nil, memeImageView.image != nil else { return }
+        _ = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: memeImageView.image!, memedImage: memedImage)
     }
 }
