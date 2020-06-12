@@ -53,17 +53,17 @@ class EditorViewController: UIViewController {
 extension EditorViewController {
     
     @IBAction func cameraAction(_ sender: UIBarButtonItem) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
+        pickAnImage(with: .camera)
     }
     
     @IBAction func albumAction(_ sender: UIBarButtonItem) {
+        pickAnImage(with: .photoLibrary)
+    }
+    
+    func pickAnImage(with sourceType: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
+        imagePicker.sourceType = sourceType
         imagePicker.allowsEditing = true
         present(imagePicker, animated: true, completion: nil)
     }
