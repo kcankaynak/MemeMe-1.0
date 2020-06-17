@@ -85,6 +85,7 @@ extension EditorViewController {
         bottomTextField.text = defaultBottomTextFieldText
         memeImageView.image = nil
         setupShareButtonState()
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -198,6 +199,7 @@ extension EditorViewController {
     
     func saveImage(_ memedImage: UIImage) {
         guard topTextField.text != nil, bottomTextField.text != nil, memeImageView.image != nil else { return }
-        _ = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: memeImageView.image!, memedImage: memedImage)
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: memeImageView.image!, memedImage: memedImage)
+        appDel.memes.append(meme)
     }
 }
